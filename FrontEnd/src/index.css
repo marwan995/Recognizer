@@ -1,0 +1,178 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 0% 0%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .scrollbar-thin::-webkit-scrollbar{
+    width:4px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: #88888879; 
+
+  }
+   
+  /* Handle */
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #f1f1f1; 
+
+  }
+  
+  /* Handle on hover */
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    
+    background: #adadad; 
+  }
+  .scrollbar-thin{
+    scrollbar-width: thin;
+  }
+}
+
+.btn {
+  @apply rounded-3xl text-white px-4 hover:bg-primary/90;
+}
+
+.full-btn {
+  @apply btn w-full;
+}
+
+.outline-btn {
+  @apply btn bg-transparent ring-1 ring-white hover:bg-white hover:text-black;
+}
+
+button-border-color {
+  border-color: rgb(207, 217, 222);
+}
+
+.quitter-sky-background-color {
+  background-color: rgb(29, 155, 240);
+  /* background-color: rgb(26, 140, 216); */
+}
+
+.quitter-sky-text-color {
+  color: rgb(29, 155, 240);
+}
+
+.quitter-sky-background-color:hover {
+  background-color: rgb(26, 140, 216);
+}
+
+.or-item:after {
+  content: "";
+  position: absolute;
+  width: 130px;
+  height: 2px;
+  background-color: rgb(239, 243, 244);
+  top: 35%;
+  right: 0;
+}
+
+.or-item:before {
+  content: "";
+  position: absolute;
+  width: 130px;
+  height: 2px;
+  background-color: rgb(239, 243, 244);
+  top: 35%;
+  left: 0;
+}
+
+.tweet-icon-container{
+  @apply flex gap-2 items-center cursor-pointer;
+}
+
+.tweet-icon{
+  @apply text-xl cursor-pointer h-5 w-5 z-10 transition-all duration-200 ease-in-out;
+}
+
+.tweet-icon-radius{
+  @apply rounded-full z-0 opacity-20 h-9 w-9 absolute left-[-8px] top-[-8px] transition-all duration-200 ease-in-out;
+}
+
+.box-shadow {
+  box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 15px, rgba(255, 255, 255, 0.15) 0px 0px 3px 1px;
+}
+
+.hidden-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.tweet-image-remover-icon{
+  @apply absolute top-2 right-2 bg-[#0f1419bf] hover:bg-[#272c30bf] cursor-pointer text-3xl p-1 rounded-full;
+}
+
+.tab {
+  @apply inline-block p-4 ;
+}
+.active-tab {
+  @apply inline-block p-4 border-b-4 border-blue-600 rounded-t-lg ;
+}
+.tabhover:hover
+{
+@apply bg-[#181818]
+}

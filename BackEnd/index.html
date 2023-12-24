@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask POST Test</title>
+</head>
+<body>
+    <h1>Flask POST Test</h1>
+    <p>This is a simple HTML page to test Flask POST requests.</p>
+
+    <form id="uploadForm" enctype="multipart/form-data">
+        <label for="fileInput">Choose an image:</label>
+        <input type="file" id="fileInput" name="file" accept="image/*">
+        <br>
+        <button type="button" onclick="uploadImage()">Upload</button>
+    </form>
+
+    <script>
+        function uploadImage() {
+            const formData = new FormData(document.getElementById('uploadForm'));
+
+            fetch('http://127.0.0.1:5000//predict', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data); // Display the response in the browser console
+                alert(`Uploaded image: ${data.filename}\nPredicted class: ${data.license}`);
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>

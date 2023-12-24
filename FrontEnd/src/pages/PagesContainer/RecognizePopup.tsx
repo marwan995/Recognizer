@@ -1,7 +1,7 @@
 import { HeaderButton, PopUpContainer } from '@/components/PopUpContainer/PopUpContainer'
 import { cn } from '@/lib/utils'
 import { useMutation } from '@tanstack/react-query'
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import axios from "axios";
 import { Spinner } from '@/components/Spinner'

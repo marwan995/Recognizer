@@ -74,4 +74,4 @@ if __name__ == '__main__':
     global_plates = read_plates()
     print('Existing Plates:', global_plates)
 
-    app.run(debug=True)
+    app.run()

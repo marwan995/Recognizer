@@ -4,6 +4,7 @@ import img from './5738467.png'
 import logo from './recognizer-high-resolution-logo-transparent.png'
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
+import ParticlesContainer from "./ParticalsContariner";
 export function PagesContainer() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -23,10 +24,10 @@ export function PagesContainer() {
   }
 
   return (
-    <div className="w-[100vw] min-h-[100vh] p-5 bg-black text-primary justify-between flex flex-row max-md:flex-col gap-10   ">
-
-      <div className=" flex flex-col gap w-[48vw] max-md:w-[90vw]">
+    <div className="relative z-0 w-[100vw] min-h-[100vh] p-5 bg-black text-primary justify-between flex flex-row max-md:flex-col gap-10   ">
+      <div className=" flex flex-col gap w-[48vw] max-md:w-[90vw] md:pl-2">
         <img src={logo} alt="" className="w-[150px] h-[100px]" />
+        <ParticlesContainer />
 
         <h1 className="font-bold mt-[10vh] text-[50px] text-[#00afbf]">Recognizer</h1>
         <p className=" text-primary text-bold ">Our Intelligent License Plate Recognition and Validation System is an advanced image processing project designed to automate and enhance the process of license plate recognition and validation. This innovative solution combines cutting-edge image processing techniques.</p>
@@ -38,7 +39,7 @@ export function PagesContainer() {
           </Link>
         </div>
       </div>
-      <img src={img} alt="" className=" w-[50vw] aspect-video  max-md:w-[80vw] max-md:h-[50vh] max-md:hidden" />
+      <img src={img} alt="" className=" relative z-5 w-[50vw] aspect-video  max-md:w-[80vw] max-md:h-[50vh] max-md:hidden" />
       <input type="file" className="hidden" onChange={handleFileChange} ref={fileInput} accept={"image/*"} multiple={false} />
     </div >
   );

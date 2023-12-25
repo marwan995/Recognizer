@@ -15,9 +15,11 @@ export function PagesContainer() {
   }
   const handleFileChange = () => {
     const filesTemp = fileInput.current!.files;
+      
     if (filesTemp && filesTemp.length > 0) {
       const selectedFile = filesTemp[0];
       console.log(selectedFile)
+      fileInput.current!.value='';
       navigate('/recognize', { state: { previousLocation: location, file: selectedFile } })
 
     }

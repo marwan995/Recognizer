@@ -1,7 +1,10 @@
-from flask import Flask, request, jsonify
+import base64
+from flask import Flask, request, jsonify,send_from_directory
 from werkzeug.utils import secure_filename
 import os
 from flask_cors import CORS
+import extract_plate
+import cv2
 
 app = Flask(__name__)
 CORS(app)
@@ -12,10 +15,29 @@ os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 # Global variable as a set to store unique plates
 global_plates = set()
+max_different_chars = 2
 
+def compare_plates(global_plate, predicted_plate):
+    if(len(global_plate) != len(predicted_plate)):
+        return False
+    equal_char = 0;
+    for i in range (len(global_plate)):
+        if(global_plate[i] == predicted_plate[i]):
+            equal_char += 1
+    return len(global_plate) - equal_char <= max_different_chars
+
+def can_pass(predicted_plate):
+    for plate in global_plates:
+        print(plate,predicted_plate)
+        if (compare_plates(plate,predicted_plate)):
+            return True;
+    return False;
 def plate_extractor(image_path):
     print(image_path)
-    return image_path
+    
+    image = cv2.imread(image_path)
+    
+    return extract_plate.plate_extractor(image)
 
 def save_plate(license_plate):
     global global_plates
@@ -39,6 +61,9 @@ def ping():
     existing_plates = list(global_plates)
     # Return the plates in the response
     return jsonify({'message': 'Pong! The Flask app is running.', 'plates': existing_plates})
+@app.route('/images/<filename>',methods=['GET'])
+def get_image(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -51,12 +76,14 @@ def predict():
 
     if file:
         filename = secure_filename(file.filename)
+
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(file_path)
 
-        predicted_class = plate_extractor(file_path)
+        plateImg,plateNumber = plate_extractor(file_path)
+        cv2.imwrite(file_path,plateImg)
 
-        return jsonify({'license': len(predicted_class), 'canPass': True})
+        return jsonify({'license':plateNumber ,'plateImg':filename, 'canPass': can_pass(plateNumber)})
 
 @app.route('/add_plate', methods=['POST'])
 def add_plate():
@@ -70,7 +97,6 @@ def add_plate():
     return jsonify({'message': 'License plate added successfully'})
 
 if __name__ == '__main__':
-    # Initialize global plates from the file when the server starts
     global_plates = read_plates()
     print('Existing Plates:', global_plates)
 
